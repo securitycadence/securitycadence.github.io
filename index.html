@@ -2,4 +2,52 @@
 layout: default
 title: Security Cadence
 ---
-blah blah blah
+<h2>Do what now?</h2>
+During a roundtable conversation on the Paul's Security Weekly podcast the topic of
+how to help organizations to figure out how to start securing their infrastructures.
+There are so many variables, so many attack surfaces, so many configurations buried
+deep in our operating systems applications. It is easy to get overwhelmed and give
+up. From the noise a suggestion was made: Organizations should adopt a Security Cadence.
+<br>&nbsp;<Br>
+<h2>What's a Security Cadence?</h2>
+The idea is simple: Set a goal to migrate into production at least one security relevant
+change every X amount of days. It could be one a week, one every other week, once a month...
+Whatever makes sense and works for your organization. The point is to just keep moving
+forward and getting better. The changes can be tiny like disabling a Windows service
+that isn't necessary in your organization (LLMNR, anyone?) or it can be a big lift like
+implementing 802.1x to prevent non-company owned systems from attaching to the corporate
+network. As long as it has a positive impact to the security posture of your organization,
+it counts!
+<Br>&nbsp;<Br>
+<h2>So what is this site for?</h2>
+This site is a simple blog where we will at a regular cadence suggest new secuirty
+initiatives that could be beneficial to organizations. Our plan is to publish a new
+initiative at a cadence of one every other week. Each initiative will have an explanation
+as to what is being suggested, why it helps improve security, how to accomplish it,
+potential gotchas, and links to additional information. We will focus as much as possible
+on security initiatives that can be accomplished for free in most organizations.
+<Br>&nbsp;<br>
+<h2>Tips...</h2>
+  <ul>
+      <li>Perfection is the Enemy of Good:</li> Often when looking at a security initiative the
+        knee-jerk reaction is to either state ways of defeating the initative or edge cases
+        for why an initiative won't work in the organization. Security is about layers, not
+        about being foolproof. For example, an initiative to enable workstation firewalls to
+        block workstations from talking to other workstations will often cause headaches for
+        service desk employees who need to remotely connect to end user systems. If you can
+        find no other ways of accomodating this workflow, then put firewall exceptions in for
+        the helpdesk systems. Blocking all workstation to workstation traffic is perfect. Blocking
+        most workstation to workstation traffic is good. Blocking no workstation to workstation
+        traffic is terrible. if you can't be perfct, at least be good.
+      <li>Always Test:</li> We will do our best to provide warnings of gotchas for every initiative
+      we suggest, but you have to know your own environment. Always test before you move forward.
+      Do what Mr. Rogers taught us, and look for the helpers. Find people throughout your
+      organization to act as your pilot group where you can push changes to first before migrating
+      to the rest of your organization.
+      <li>Stability is More Important Than Your Cadence:</li> If your change isn't ready for prime
+      time then give yourself permission to push back your migration date. Don't put your business
+      at risk just to keep up with your cadence. As a suggestion, instead of breaking your cadence,
+      replace your weekly change with user awareness training. Emails, posters, lunch and learns, etc...
+      <li>Talk to Us!</li> Have an Initiative you'd like to see added to our site? Let us know!
+      @SecurityCadence on Twitter.
+  </ul>
