@@ -2,6 +2,7 @@
 layout: posts
 title: "Launching Security Cadence"
 date: 2019-12-20
+tags: information
 ---
 
 While on the Security Weekly podcast I made the suggestion for organizations to set themselves a "Security Cadence".  A rhythm for migrating security changes into production.  
