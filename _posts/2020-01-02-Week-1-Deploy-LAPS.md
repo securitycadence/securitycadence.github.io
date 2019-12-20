@@ -5,9 +5,9 @@ date: 2020-01-02
 tags: windows passwords
 ---
 
-<h2>What?<h2>
+<h2>What?</h2>
 Microsoft LAPS is a free tool from Microsoft for automatically generating and setting random passwords
-to Windows Local Administrator accounts. 
+to Windows Local Administrator accounts.
 
 
 
