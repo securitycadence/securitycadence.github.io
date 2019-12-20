@@ -22,7 +22,9 @@ This creates an environment that makes for easy lateral movement from endpoint t
 gaining access to this single account is in a position to move from system to system with full administrator
 rights. This is also at high risk of pass-the-hash attacks.
 
-##How?
+## How?
+
+Do stuff here.
 
 ## Gotchas?
 
