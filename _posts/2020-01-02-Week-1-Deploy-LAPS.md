@@ -50,5 +50,5 @@ accounts, there are several excellent options out there:
 
 More information regarding LAPS:  
 
-  *[Download LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
-  *[Microsoft LAPS Deployment Step-By-Step Guide](https://gallery.technet.microsoft.com/Step-by-Step-Deploy-Local-7c9ef772/file/150657/1/Step%20by%20Step%20Guide%20to%20Deploy%20Microsoft%20LAPS.pdf)
+* [Download LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
+* [Microsoft LAPS Deployment Step-By-Step Guide](https://gallery.technet.microsoft.com/Step-by-Step-Deploy-Local-7c9ef772/file/150657/1/Step%20by%20Step%20Guide%20to%20Deploy%20Microsoft%20LAPS.pdf)
