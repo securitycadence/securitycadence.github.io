@@ -20,14 +20,34 @@ a {
 a:hover {
   text-decoration : underline;
 }
-h1 {
-  font-size: 3em;
+h1.title {
+  font-size : 3em;
   font-family:'helvetica', 'arial', 'sans-serif';
+  padding-bottom : 0px;
+}
+h1 {
+  font-size: 2em;
+  font-family:'helvetica', 'arial', 'sans-serif';
+}
+h2.subtitle {
+  font-size: 1em;
+  font-family:'helvetica', 'arial', 'sans-serif';
+  font-style : italic;
+  color : #CCCCCC;
+  padding-top : 0px;
+  padding-bottom : 15px;
+  border-bottom: thin solid blue;
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 1em;
   font-family:'helvetica', 'arial', 'sans-serif';
+  color : #CCCCCC;
+  padding-top : 0px;
+}
+.blurb {
+  line-height : 1px;
+
 }
 footer {
   border-top : 1px solid #d5d5d5;
