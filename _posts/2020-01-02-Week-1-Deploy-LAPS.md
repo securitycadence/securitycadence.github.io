@@ -100,10 +100,10 @@ In order to view a password set by LAPS, you will need an account that has been 
 ## Gotchas?
 
 1. If your organization has disabled the built-in (RID 500) local administrator account and replaced it with
-an alternative you should know that this creates a risk. While LAPS can target a uniquely named Local administrator
+an alternative you should know that this creates a risk. While LAPS can target a uniquely named local administrator
 account, it will lose track of it if the account is renamed. It is for this reason that Microsoft recommends
 that organizations make exclusive use of the built-in Administrator account. When using the built-in account LAPS
-will target RID 500 instead of the Administrator username.  Note that you can still rename the Administrator
+will target RID 500 instead of the Administrator username. Note that you can still rename the Administrator
 account if you should so choose. This will not impact LAPS.  
 2. Organizations should understand that LAPS does store the local administrator password in Active Directory in
 clear text. Access to the passwords are controlled via ACLs in Active Directory. While this may seem like a
@@ -115,7 +115,7 @@ technically against PCI requirements, for example. However, this author has neve
 having issues with PCI auditors barking over LAPS. Compensating controls of ACLS combined with the obviously
 stronger footprint over password reuse should appease any auditor.  
 4. You can potentially run into issues with LAPS and technologies such as snapshotting where a virtual machine
-has a snapshot applied, LAPS changes the password, and the virtual machine is reverted. In this scenario the
+has a snapshot applied, LAPS changes the password, and the virtual machine is then reverted. In this scenario the
 local administrator password will be lost until the next LAPS password change. The chances of this having an
 impact are relatively low, as domain accounts will still have access to the system.
 
