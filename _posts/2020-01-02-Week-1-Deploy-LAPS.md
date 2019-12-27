@@ -33,7 +33,7 @@ LAPS is available in 64bit and 32bit versions and is supported on Windows 7 thro
 On the management system launch the installer. Choose which features you wish to install when prompted:
 * **AdmPWD GPO Extension:** GPO extension used by LAPS for changing the local administrator password. This portion of the MSI will need to be installed on all endpoints where you wish to change the password.
 * **Fat client UI:** Simple GUI interface for viewing passwords. This is honestly not super useful as you will be able to view passwords either with Powershell or via the Active Directory Users and Computers MMC.
-* **PowerShell module:** Installs the Get-AdmPwdPassword commandlet for viewing passwords
+* **PowerShell module:** Installs the Powershell cmdlets for viewing passwords and setting permissions.
 * **GPO editor templates:** ADMX templates for configuring LAPS GPOs
 
 #### 3. Client Installation
@@ -91,7 +91,7 @@ Here you will find four different settings:
 In order to view a password set by LAPS, you will need an account that has been granted permissions to view the ms-Mcs-AdmPwd attribute.  There are three basic ways to view the password:
 
 * **Powershell:** Use the Get-AdmPwdPassword cmdlet:
-`Get-AdmPwdPassword -ComputerName "myWorkstation"
+`Get-AdmPwdPassword -ComputerName "myWorkstation"`
 
 * **LAPS Fat Client:** From your management server launch C:\program files\LAPS\AdmPwd.UI.  This will execute a basic program where you can type in the computer name you wish to retrieve the local admin password for.
 
