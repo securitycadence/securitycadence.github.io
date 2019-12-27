@@ -71,10 +71,31 @@ You can use the Set-AdmPwdReadPasswordPermission cmdlet to provide additional us
 
 `Set-AdmPwdReadPasswordPermission -OrgUnit <OU containing computer objects> -AllowedPrincipals <Name of group to delegate permissions to>`
 
+6. Setup the LAPS GPO
 
+Finally we are ready to configure a basic group policy for configuring LAPS. On the your management system load the Group Policy Management Console. You will want to create a new GPO or modify an existing GPO that is linked to your computer OU.
 
+Under Computer Configurstion -> Policies -> Administrative Templates you should now have a section for LAPS:
 
+![LAPS GPO Location](https://securecadence.github.io/imgs/2020-01-02/GPO-LAPS-1.png)
 
+Here you will find four different settings:
+
+...Password Settings: Allows you to configure the complexity an dage of the passwords that LAPS sets.
+...Name of administrator account to manage: Name of the local administrator account that you wish to mange. Only use this setting if you are using an account other than the built-in (RID 500) local admin account, even if you've renamed the built-in local admin account.
+...Do not allow password expiration time longer than required by policy: When enabled the password of a local administrator account is changed immediately when it's password has expired.
+...Enable local admin password management: Enables LAPS for the OU
+
+7. Viewing PasswordState
+
+In order to view a password set by LAPS, you will need an account that has been granted permissions to view the ms-Mcs-AdmPwd attribute.  There are three basic ways to view the password:
+
+...Powershell: Use the Get-AdmPwdPassword cmdlet:
+`Get-AdmPwdPassword -ComputerName "myWorkstation"
+
+...LAPS Fat Client: From your management server launch C:\program files\LAPS\AdmPwd.UI.  This will execute a basic program where you can type in the computer name you wish to retrieve the local admin password for.
+
+...Active Directory Users and Computers: Enable the viewing of Advanced Features in the ADUC MMC snap-in which will then expose the Attribute Editor tab when you view a computer object's properties. From here you can scroll down to the ms-Mcs-AdmPwd attribute to view its value.
 
 ## Gotchas?
 
@@ -109,5 +130,6 @@ accounts, there are several excellent options out there:
 
 More information regarding LAPS:  
 
+* [4SysOps LAPS Introduction](https://4sysops.com/archives/introduction-to-microsoft-laps-local-administrator-password-solution/)
 * [Download LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
 * [Microsoft LAPS Deployment Step-By-Step Guide](https://gallery.technet.microsoft.com/Step-by-Step-Deploy-Local-7c9ef772/file/150657/1/Step%20by%20Step%20Guide%20to%20Deploy%20Microsoft%20LAPS.pdf)
