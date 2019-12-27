@@ -24,7 +24,57 @@ rights. This is also at high risk of pass-the-hash attacks.
 
 ## How?
 
-Do stuff here.
+1. Download LAPS  
+
+LAPS is available in 64bit and 32bit versions and is supported on Windows 7 through Server 2019.  You will need a management computer, which is often a Domain Controller.  The software can be downloaded here: [https://www.microsoft.com/en-us/download/details.aspx?id=46899](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
+
+2. Management Installation
+
+On the management system launch the installer. Choose which features you wish to install when prompted:
+...AdmPWD GPO Extension: GPO extension used by LAPS for changing the local administrator password. This portion of the MSI will need to be installed on all endpoints where you wish to change the password.
+...Fat client UI: Simple GUI interface for viewing passwords. This is honestly not super useful as you will be able to view passwords either with Powershell or via the Active Directory Users and Computers MMC.
+...PowerShell module: Installs the Get-AdmPwdPassword commandlet for viewing passwords
+...GPO editor templates: ADMX templates for configuring LAPS GPOs
+
+3. Client Installation
+
+The LAPS msi defaults to installing just the GPO extension when launched silently.  As such, deployment of LAPS can be as simple as a GPO that executes:
+`msiexec /i <file location>\LAPS.x64.msi /quiet`
+
+4. Extend the Active Directory Schema to support LAPS.
+
+LAPS requires the following attributes to be added to the AD Schema for computer objects in order to function:
+
+...ms-Mcs-AdmPwd: Stores the password in clear text
+...ms-Mcs-AdmPwdExpirationTime: Stores the time to reset the password
+
+To extend the schema, launch Powershell on your management server with a user account that is a member of the Schema Admins AD group.  Run the following commands:
+
+`import-module AdmPwd.ps`
+`Update-AdmPwdADSchema`
+
+Next we need to grant the computer objects permissions to set their own password and expiration attributes:
+
+`Set-AdmPwdComputerSelfPermission -OrgUnit <OU containing computer objects>`
+
+Repeat the above for all relevant OUs in your AD structure.
+
+5. Ensure that only the proper users can view local admin passwords
+
+Next in Powershell we will take a look at who has the abilitity to view the ms-Mcs-AdmPwd attribute in Active Directory.  By default Domain and Enterprise admins will have access to view the passwords. Issue the following command:
+
+`Find-AdmPwdExtendedRights -OrgUnit <OU containing computer objects>`
+
+The output of this command will likely only show NT Authority\System and Domain Admins. If there are users/groups in this output that should not have permission to see the stored passwords, then they need to have the "All extended rights" permission removed from the OU in question. This website has a good writeup on how to remove these permissions [https://4sysops.com/archives/set-up-microsoft-laps-local-administrator-password-solution-in-active-directory/#update-user-group-ad-permissions](https://4sysops.com/archives/set-up-microsoft-laps-local-administrator-password-solution-in-active-directory/#update-user-group-ad-permissions)
+
+You can use the Set-AdmPwdReadPasswordPermission cmdlet to provide additional users/groups the ability to view passwords:
+
+`Set-AdmPwdReadPasswordPermission -OrgUnit <OU containing computer objects> -AllowedPrincipals <Name of group to delegate permissions to>`
+
+
+
+
+
 
 ## Gotchas?
 
