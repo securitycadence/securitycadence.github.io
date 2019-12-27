@@ -24,29 +24,29 @@ rights. This is also at high risk of pass-the-hash attacks.
 
 ## How?
 
-### 1. Download LAPS  
+#### 1. Download LAPS  
 
 LAPS is available in 64bit and 32bit versions and is supported on Windows 7 through Server 2019.  You will need a management computer, which is often a Domain Controller.  The software can be downloaded here: [https://www.microsoft.com/en-us/download/details.aspx?id=46899](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
 
-### 2. Management Installation
+#### 2. Management Installation
 
 On the management system launch the installer. Choose which features you wish to install when prompted:
-* AdmPWD GPO Extension: GPO extension used by LAPS for changing the local administrator password. This portion of the MSI will need to be installed on all endpoints where you wish to change the password.
-* Fat client UI: Simple GUI interface for viewing passwords. This is honestly not super useful as you will be able to view passwords either with Powershell or via the Active Directory Users and Computers MMC.
-* PowerShell module: Installs the Get-AdmPwdPassword commandlet for viewing passwords
-* GPO editor templates: ADMX templates for configuring LAPS GPOs
+* **AdmPWD GPO Extension:** GPO extension used by LAPS for changing the local administrator password. This portion of the MSI will need to be installed on all endpoints where you wish to change the password.
+* **Fat client UI:** Simple GUI interface for viewing passwords. This is honestly not super useful as you will be able to view passwords either with Powershell or via the Active Directory Users and Computers MMC.
+* **PowerShell module:** Installs the Get-AdmPwdPassword commandlet for viewing passwords
+* **GPO editor templates:** ADMX templates for configuring LAPS GPOs
 
-### 3. Client Installation
+#### 3. Client Installation
 
 The LAPS msi defaults to installing just the GPO extension when launched silently.  As such, deployment of LAPS can be as simple as a GPO that executes:
 `msiexec /i <file location>\LAPS.x64.msi /quiet`
 
-### 4. Extend the Active Directory Schema to support LAPS.
+#### 4. Extend the Active Directory Schema to support LAPS.
 
 LAPS requires the following attributes to be added to the AD Schema for computer objects in order to function:
 
-* ms-Mcs-AdmPwd: Stores the password in clear text
-* ms-Mcs-AdmPwdExpirationTime: Stores the time to reset the password
+* **ms-Mcs-AdmPwd:** Stores the password in clear text
+* **ms-Mcs-AdmPwdExpirationTime:** Stores the time to reset the password
 
 To extend the schema, launch Powershell on your management server with a user account that is a member of the Schema Admins AD group.  Run the following commands:
 
@@ -59,7 +59,7 @@ Next we need to grant the computer objects permissions to set their own password
 
 Repeat the above for all relevant OUs in your AD structure.
 
-### 5. Ensure that only the proper users can view local admin passwords
+#### 5. Ensure that only the proper users can view local admin passwords
 
 Next in Powershell we will take a look at who has the abilitity to view the ms-Mcs-AdmPwd attribute in Active Directory.  By default Domain and Enterprise admins will have access to view the passwords. Issue the following command:
 
@@ -71,7 +71,7 @@ You can use the Set-AdmPwdReadPasswordPermission cmdlet to provide additional us
 
 `Set-AdmPwdReadPasswordPermission -OrgUnit <OU containing computer objects> -AllowedPrincipals <Name of group to delegate permissions to>`
 
-### 6. Setup the LAPS GPO
+#### 6. Setup the LAPS GPO
 
 Finally we are ready to configure a basic group policy for configuring LAPS. On the your management system load the Group Policy Management Console. You will want to create a new GPO or modify an existing GPO that is linked to your computer OU.
 
@@ -81,21 +81,21 @@ Under Computer Configurstion -> Policies -> Administrative Templates you should 
 
 Here you will find four different settings:
 
-* Password Settings: Allows you to configure the complexity an dage of the passwords that LAPS sets.
-* Name of administrator account to manage: Name of the local administrator account that you wish to mange. Only use this setting if you are using an account other than the built-in (RID 500) local admin account, even if you've renamed the built-in local admin account.
-* Do not allow password expiration time longer than required by policy: When enabled the password of a local administrator account is changed immediately when it's password has expired.
-* Enable local admin password management: Enables LAPS for the OU
+* **Password Settings:** Allows you to configure the complexity an dage of the passwords that LAPS sets.
+* **Name of administrator account to manage:** Name of the local administrator account that you wish to mange. Only use this setting if you are using an account other than the built-in (RID 500) local admin account, even if you've renamed the built-in local admin account.
+* **Do not allow password expiration time longer than required by policy:** When enabled the password of a local administrator account is changed immediately when it's password has expired.
+* **Enable local admin password management:** Enables LAPS for the OU
 
-### 7. Viewing Passwords
+#### 7. Viewing Passwords
 
 In order to view a password set by LAPS, you will need an account that has been granted permissions to view the ms-Mcs-AdmPwd attribute.  There are three basic ways to view the password:
 
-* Powershell: Use the Get-AdmPwdPassword cmdlet:
+* **Powershell:** Use the Get-AdmPwdPassword cmdlet:
 `Get-AdmPwdPassword -ComputerName "myWorkstation"
 
-* LAPS Fat Client: From your management server launch C:\program files\LAPS\AdmPwd.UI.  This will execute a basic program where you can type in the computer name you wish to retrieve the local admin password for.
+* **LAPS Fat Client:** From your management server launch C:\program files\LAPS\AdmPwd.UI.  This will execute a basic program where you can type in the computer name you wish to retrieve the local admin password for.
 
-* Active Directory Users and Computers: Enable the viewing of Advanced Features in the ADUC MMC snap-in which will then expose the Attribute Editor tab when you view a computer object's properties. From here you can scroll down to the ms-Mcs-AdmPwd attribute to view its value.
+* **Active Directory Users and Computers:** Enable the viewing of Advanced Features in the ADUC MMC snap-in which will then expose the Attribute Editor tab when you view a computer object's properties. From here you can scroll down to the ms-Mcs-AdmPwd attribute to view its value.
 
 ## Gotchas?
 
