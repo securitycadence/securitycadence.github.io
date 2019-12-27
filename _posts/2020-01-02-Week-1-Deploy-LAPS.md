@@ -91,6 +91,7 @@ Here you will find four different settings:
 In order to view a password set by LAPS, you will need an account that has been granted permissions to view the ms-Mcs-AdmPwd attribute.  There are three basic ways to view the password:
 
 * **Powershell:** Use the Get-AdmPwdPassword cmdlet:
+
 `Get-AdmPwdPassword -ComputerName "myWorkstation"`
 
 * **LAPS Fat Client:** From your management server launch C:\program files\LAPS\AdmPwd.UI.  This will execute a basic program where you can type in the computer name you wish to retrieve the local admin password for.
