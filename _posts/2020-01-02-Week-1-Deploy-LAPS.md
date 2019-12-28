@@ -77,7 +77,7 @@ Finally we are ready to configure a basic group policy for configuring LAPS. On 
 
 Under Computer Configurstion -> Policies -> Administrative Templates you should now have a section for LAPS:
 
-![LAPS GPO Location](https://securitycadence.github.io/imgs/2020-01-02/GPO-LAPS-1.png)
+![LAPS GPO Location](http://www.securitycadence.com/imgs/2020-01-02/GPO-LAPS-1.png)
 
 Here you will find four different settings:
 
